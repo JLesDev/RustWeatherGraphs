@@ -1,0 +1,41 @@
+[package]
+name = "hot_or_not_3"
+version = "0.1.0"
+authors = ["Jonty Leslie "]
+edition = "2021"
+keywords = ["javascript", "dom", "wasm", "charts"]
+categories = ["gui", "web-programming", "wasm"]
+readme = "README.md"
+description = "Chart JS API for Rust WebAssembly"
+repository = "https://github.com/Billy-Sheppard/chart-js-rs"
+homepage = "https://github.com/Billy-Sheppard/chart-js-rs"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+serde = { version = "1.0.104", features = ["derive"] }
+console_error_panic_hook = "0.1.7"
+serde_json = "1.0"
+wasm-bindgen = { version = "*", default-features = false, features = [ "std", "spans" ] }
+wasm-bindgen-futures = { version = "0.4.50", default-features = false }
+reqwest = { version = "0.12.12", default-features = false, features = ["json"] }
+gloo = "0.11"
+gloo-console = "*"
+chart-js-rs = { version = "0.0.49" }
+itertools = "*"
+js-sys = { version = "*", default-features = false }
+rand = { version = "*", default-features = false, features = ["std_rng"] }
+dominator = { version = "*", default-features = false }
+futures-signals = "*"
+futures = "*"
+getrandom = { version = "*", features = ["js"] }
+uuid = { version = "1.15.1", features = ["v4", "js"] }
+web-sys = { version = "*", default-features = false }
+
+[build-dependencies]
+heck = "0.5.0"
+itertools = "0.14.0"
+quote = "1.0.39"
+proc-macro2 = "1.0.94"
+syn = { features = ["parsing", "full"], version = "2.0.99" }

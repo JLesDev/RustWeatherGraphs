@@ -1,0 +1,54 @@
+<html>
+<head>
+  <meta charset="%UTF-8" />
+</head>
+<body>
+  <script type="module" src="./index.js"></script>
+
+  <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+  </script>
+    
+  <link rel="stylesheet" href="style.css">
+  
+  <h1>Weather Obtainer - BOM's API in Rust</h1>
+
+  <h1 id="test">Weather in Melbourne</h1>
+
+  <div id="chart">
+    <canvas id="myChart" style="width:100%;max-width:1000px;background-color:aliceblue;align-items:center;justify-content: center;display: flex;"></canvas>
+  </div>
+  
+  <h1 id="placeholder">AD Free. Non-governmental.</h1>
+  
+  <div id="feels-div">
+    <h2 id="feels">You are valued.</h2>
+  </div>
+
+  <div id="idasdasd">
+
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@^4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@^4"></script>
+  
+  <script type="module">
+    import * as root from './pkg/hot_or_not_3.js'
+
+    // myChart.destroy();
+    window.callbacks = root;
+    window.mutate_chart_object = function (v) {
+      if (v.id == ("bar")) {
+        v.options.scales.y1.ticks = {
+          callback:
+            function (value, _index, _values) {
+              return '$' + value.toFixed(2);
+            }
+        };
+      }
+      //v.destroy();
+      return v
+    };
+  </script>
+</body>
+</html>
