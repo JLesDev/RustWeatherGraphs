@@ -1,260 +1,192 @@
 :root {
-    --bg-color: #ffffff;
-    --bg-color-2: #ededed;
-    /*--fg-color: #000000;*/
-    --fg-color: #000000;
-    --splash-color: #eeeef8;
-    --hr-color: #eeeef8;
-    --color: #121213;
-    /*--hr-color: #000000;*/
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    :root {
-      /*--bg-color: #121213;*/
-      --bg-color: #dbafaf;
-      /*--bg-color-2: #1f1f21;*/
-      --bg-color-2: #ffffff;
-      --fg-color: #000000;
-      /*--splash-color: #2f2f33;*/
-      --splash-color: #ffffff;
-      --hr-color: #050101;
-      --color: #720404;
-    }
-  }
-  
-  html {
-    box-sizing: border-box;
-    margin: 0;
-  }
-  
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
-  }
-  
-  body {
-    font-family: sans-serif;
-    color: var(--fg-color);
-    background-color: var(--bg-color);
-  }
-  
-  h1 {
-    text-align: center;
-  }
+  --bg-color: #ffffff;
+  --bg-color-2: #f5f5f5;
+  --fg-color: #222;
+  --splash-color: #f8f9ff;
+  --hr-color: #e5e5e5;
+  --accent: #4b6fff;
+}
 
-  h2 {
-    text-align: center;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #121213;
+    --bg-color-2: #1f1f21;
+    --fg-color: #f8f8f8;
+    --splash-color: #1c1c24;
+    --hr-color: #2c2c2c;
+    --accent: #7aa2ff;
   }
-  
+}
 
-  #chart{
-    align-items:center;
-    justify-content: center;
-    display: flex;
-  }
-  
-  p {
-    margin: 0;
-    margin-bottom: 0.5rem;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #135eff;
-  }
-  
-  hr {
-    border: 0;
-    clear: both;
-    display: block;
-    width: 90%;
-    background-color: var(--hr-color);
-    height: 0.2rem;
-  }
+html {
+  box-sizing: border-box;
+  margin: 0;
+  font-size: 16px;
+}
 
-  #feels-div {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin: auto;
-    margin-right: 5%;
-    margin-left: 5%;
-  }
-  
-  #game-board {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  .letter-box {
-    width: 4rem;
-    height: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2px;
-  
-    border: 2px solid #6c6c6c;
-    border-radius: 3px;
-  
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
+*, *::before, *::after {
+  box-sizing: inherit;
+}
 
-  #readMoreButt {
+body {
+  font-family: system-ui, sans-serif;
+  color: var(--fg-color);
+  background: var(--bg-color);
+  line-height: 1.5;
+  margin: 0;
+}
 
-      height: 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 2px;
-    
-      border: 2px solid yellowgreen;
-      border-radius: 3px;
-    
-      font-size: 1rem;
-      font-weight: 700;
-      text-transform: uppercase;
-    
-  }
-  
-  .filled-box {
-    border: 2px solid var(--fg-color);
-  }
-  
-  /*
-  .filled-box {
-    border: 2px solid var(--fg-color);
-  }
-  */
-  
-  .letter-row {
-    display: flex;
-  }
-  
-  #keyboard-cont {
-    margin: 1rem 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  #keyboard-cont div {
-    display: flex;
-    margin: 4px 0;
-  }
-  
-  
+h1, h2 {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+p {
+  margin: 0 0 0.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+hr {
+  width: 90%;
+  height: 2px;
+  border: none;
+  background: var(--hr-color);
+  margin: 1rem auto;
+}
+
+/* Chart */
+#chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Game board & feels */
+#feels-div,
+#game-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem auto;
+  padding: 0 5%;
+}
+
+/* Letter boxes */
+.letter-row {
+  display: flex;
+}
+
+.letter-box {
+  width: 4rem;
+  height: 4rem;
+  margin: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #bbb;
+  border-radius: 6px;
+  background: var(--bg-color-2);
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.letter-box:hover {
+  background: var(--splash-color);
+  border-color: var(--accent);
+}
+
+.filled-box {
+  border: 2px solid var(--fg-color);
+}
+
+/* Buttons */
+#readMoreButt,
+#startButton,
+.keyboard-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  margin: 0.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+  transition: background 0.25s ease;
+}
+
+#readMoreButt:hover,
+#startButton:hover,
+.keyboard-button:hover {
+  background: #364fcc;
+}
+
+/* Keyboard */
+#keyboard-cont {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#keyboard-cont div {
+  display: flex;
+  margin: 4px 0;
+}
+
+.keyboard-button {
+  flex: 1;
+  min-width: 2rem;
+}
+
+/* Splash screen */
+#splash {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  width: min(30rem, 90%);
+  max-height: 80%;
+  padding: 1.5rem;
+  overflow-y: auto;
+  text-align: center;
+  background: var(--splash-color);
+  border: 1px solid var(--bg-color-2);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
   .keyboard-button {
-    padding: 1rem;
-    margin: 0 4px;
-  
-    font-size: 1rem;
-    font-weight: 700;
-  
-    cursor: pointer;
-    text-transform: uppercase;
-  
-    color: #000000;
-    background-color: #e3e3e9;
-    border: 0;
-    border-radius: 4px;
-  }
-  
-  
-  
-  
-  #splash {
-    position: fixed;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-  
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 30%;
-    height: 65%;
-  
-    margin: auto;
-    padding: 1rem;
-    overflow: scroll;
-  
-    text-align: center;
-    line-height: 1.5;
-    align-content: center;
-    align-items: center;
-  
-    background: var(--splash-color);
-    border: 1px solid var(--bg-color-2);
-    border-radius: 10px;
-  }
-  
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
-  
-  .fade-in {
-    opacity: 0;
-    animation: fadeIn 1s ease-in forwards;
-  }
-  
-  
-  #startButton {
-    font-size: 1em;
-    font-weight: 700;
-    margin: 0.5rem auto;
+    font-size: 0.9rem;
+    height: 3rem;
     padding: 0.2rem;
-  
-    cursor: pointer;
-    text-transform: uppercase;
-    color: #000000;
-  
-    width: 6rem;
-    min-height: 2.5rem;
-  
-    border: 0;
-    border-radius: 4px;
+    margin: 0 2px;
   }
-  
-  @media (max-width: 800px) {
-    #keyboard-cont div {
-      width: 100%;
-    }
-  
-    .keyboard-button {
-      flex: 1;
-      margin: 0 2px;
-      height: 3rem;
-  
-      font-size: 0.9rem;
-      padding: 0.2rem;
-    }
 
-    #myButton {
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
-      }
-
-    #keyboard-cont {
-      margin: 0.3rem 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    #splash {
-      width: 95%;
-    }
-  
+  #keyboard-cont {
+    margin: 0.3rem 0;
   }
+}

@@ -79,55 +79,140 @@ async function run() {
       const barColors = ["red", "green","blue","orange","brown"];
       
       console.log("jo test" + window.callbacks.show_line_ticks);
-      for (let i = 47; i > 0; i--){
+
+      for (let i = 0; i < 1; i++){
+        let ci = observations.data[i].temp; 
+
+        let p = document.createElement('p');
+        let timer = new Date(); 
+        let realtimer = new Date(observations.data[i].time);
+        console.log(realtimer);
+        let now = new Date();
+        let currentTime = realtimer.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        console.log(currentTime.getHours);
+        console.log(`Current Time: ${currentTime}`);
+        let nozero = realtimer.getHours().toString();
+        let nonzero = nozero.replace(/^0+/, '');
+        console.log(nonzero+":"+realtimer.getMinutes());
+	      p.textContent = currentTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + observations.data[i].temp_feels_like+"°C.";
+
+	      parent.appendChild(p);
+      }
+
+      for (let i = 24; i > -1; i--){
         let ci = observations.data[i].temp; 
         console.log(ci);
         let p = document.createElement('p');
-	      p.textContent = observations.data[i].time + " " + observations.data[i].temp + " " + observations.data[i].name;
+        //let timer = new Date(observations.data[i].time);
+        let timer = new Date(); 
+        let realtimer = new Date(observations.data[i].time);
+        console.log(realtimer);
+        let now = new Date();
+        let currentTime = realtimer.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        console.log(currentTime.getHours);
+        console.log(`Current Time: ${currentTime}`);
+        let nozero = realtimer.getHours().toString();
+        let nonzero = nozero.replace(/^0+/, '');
+        console.log(nonzero+":"+realtimer.getMinutes());
+	      //p.textContent = currentTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + observations.data[i].temp_feels_like;
         yValues[i] = observations.data[i].temp;
         
         if (observations.data[i].time === "undefined"){
           xValues[i] = "Not found";
         }
         else{
-          xValues[i] = observations.data[i].time;
+          // xValues[i] = observations.data[i].time;
+          xValues[i] = currentTime;
         }
         
 	      parent.appendChild(p);
       }
 
+
+      const plugin = {
+        id: 'customCanvasBackgroundColor',
+        beforeDraw: (chart, args, options) => {
+          const {ctx} = chart;
+          ctx.save();
+          ctx.globalCompositeOperation = 'destination-over';
+          ctx.fillStyle = options.color || '#99ffff';
+          ctx.fillRect(0, 0, chart.width, chart.height);
+          ctx.restore();
+        }
+      };
+
       new Chart("myChart", {
         type: "line",
+        //title: "hi",
         data: {
           labels: xValues,
           datasets: [{
-            fill: false,
-            backgroundColor: "purple",
+            label: "",
+            //color: "white",
+            borderColor: "lightGrey",       // Line color
+            //backgroundColor: "black",   // Point color
+            //pointBackgroundColor: "black",
+            //pointBorderColor: "black",
+            fill: true,
+            backgroundColor: 'rgba(85, 85, 85, 1)',
             data: yValues
           }]
         },
         options: {
-        legend: {display: false},
-        title: {
-          display: true,
-          text: observations.data[0].name + " temperature for " + observations.data[0].time,
-        }}
-      });
-      })
+          //backgroundColor: 'black',
+          plugins: {
+            customCanvasBackgroundColor: {
+              //color: 'black',
+              color: '#121213',
+              }
+          },
+          legend: {
+            display: false
+          },
+          title: {
+            display: false,
+            fontColor: 'white',
+            text: "yessir",
+            //text: observations.data[0].name + " temperature for " + observations.data[0].time,
+            //text: "WEATHER"
+          },
+          scales: {
+            x: {
+              title: false,
+              ticks: {
+                color: 'rgba(190, 190, 190, 1)'
+              }
+            },
+            y: {
+              ticks: {
+                //display: false,
+                color: 'rgba(190, 190, 190, 1)'
+              }
+            },
+          },
+        },
+         
+        plugins: [plugin],
+        });
+        //Chart.defaults.global.defautFontColor = 'white';
+       
+      }
+    
+    )
     .then((temp) => {
 
     }
     );
 
 
-  var z = document.createElement("h1");
+  var z = document.createElement("h2");
   z.setAttribute("id", "placeholder");
   document.body.appendChild(z);
 
-  var feels = document.createElement("h2");
-  feels.setAttribute("id", "feels");
-  document.getElementById("feels-div").appendChild(feels);
-  document.getElementById("feels").textContent = "Feels like";
+  // var feels = document.createElement("h2");
+  // feels.setAttribute("id", "feels");
+  // document.getElementById("feels-div").appendChild(feels);
+  // document.getElementById("feels").textContent = "Feels like";
 
 
     

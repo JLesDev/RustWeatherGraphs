@@ -805,6 +805,7 @@ pub async extern fn call_prog(opt: i8, location: usize) -> Vec<String>{
     gloo_console::log!(format!("Calling prog"));
     let a = prog(opt, location).await;
     gloo_console::log!(format!("Called it!, {:?}", a));
+   // render(Model);
     a
 }
 
@@ -876,12 +877,6 @@ pub async fn prog(opt: i8, location: usize) -> Vec<String> {
     match opt{
         1 => match get_data(location).await {
             Ok(data) => {
-                // for i in 0..data.observations.data.len() {
-                //     temps.push(data.observations.data[i].air_temp.to_string());
-                //     gloo_console::log!(format!("hello, the temps: {:?}", temps.last()));
-                // }
-                // temps.push(data.temp.to_string());
-                // gloo_console::log!(format!("hello, the temps: {:?}", temps.last()));
                 for i in 0..data.data.len() {
                     temps.push(data.data[i].temp.to_string());
                     gloo_console::log!(format!("hello: {:?}", temps.last()));
