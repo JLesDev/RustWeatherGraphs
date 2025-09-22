@@ -12,14 +12,14 @@
   @media (prefers-color-scheme: dark) {
     :root {
       /*--bg-color: #121213;*/
-      --bg-color: #ffffff;
+      --bg-color: #dbafaf;
       /*--bg-color-2: #1f1f21;*/
       --bg-color-2: #ffffff;
       --fg-color: #000000;
       /*--splash-color: #2f2f33;*/
       --splash-color: #ffffff;
-      --hr-color: #ffffff;
-      --color: #000000;
+      --hr-color: #050101;
+      --color: #720404;
     }
   }
   

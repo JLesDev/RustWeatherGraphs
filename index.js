@@ -1,4 +1,4 @@
-import init, { /*get_weather_name, get_url,*/ test, call_prog, show_line_ticks, main_js} from './pkg/hot_or_not_3.js';
+import init, { /*get_weather_name, get_url,*/ call_prog, show_line_ticks} from './pkg/hot_or_not_3.js';
 await init();
 
 // src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js";
@@ -31,15 +31,15 @@ async function run() {
   doSomething();
   let a = await call_prog();
   console.log(a);
-  test("https://reg.bom.gov.au/fwo/IDV60901/IDV60901.95936.json");
-  const url = "https://reg.bom.gov.au/fwo/IDV60901/IDV60901.95936.json";
+  //test("https://reg.bom.gov.au/fwo/IDV60901/IDV60901.95936.json");
+  const url = "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly";
   const urls = [
     "https://reg.bom.gov.au/fwo/IDV60901/IDV60901.95936.json",
     "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json",
     "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94854.json"
 
   ];
-  const url2 = "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json";
+  const url2 = "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly";
   const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -63,61 +63,61 @@ async function run() {
   console.log(response);
 
 
-  // await fetch(String(url)) //1
-  //   .then((response) => response.json()) //2
-  //   .then((observations) => {
-  //     console.log(observations);
-  //     console.log(observations.observations.data[0].air_temp);
-  //     console.log(observations.notice);
-  //     console.log("test");
+  await fetch(String(url)) //1
+    .then((response) => response.json()) //2
+    .then((observations) => {
+      console.log(observations);
+      console.log(observations.data[0].temp);
+      console.log(observations.notice);
+      console.log("test");
       
-  //     let ci = observations.observations.data[0].air_temp; //3
-  //     let ci2 = observations.observations.data[0].apparent_t;
-  //     let parent = document.querySelector('#placeholder');
-  //     const xValues = [];
-  //     const yValues = [];
-  //     const barColors = ["red", "green","blue","orange","brown"];
+      let ci = observations.data[0].temp; //3
+      let ci2 = observations.data[0].temp_feels_like;
+      let parent = document.querySelector('#placeholder2');
+      const xValues = [];
+      const yValues = [];
+      const barColors = ["red", "green","blue","orange","brown"];
       
-  //     console.log("jo test" + window.callbacks.show_line_ticks);
-  //     for (let i = 47; i > 0; i--){
-  //       let ci = observations.observations.data[i].air_temp; 
-  //       console.log(ci);
-  //       let p = document.createElement('p');
-	//       p.textContent = observations.observations.data[i].local_date_time + " " + observations.observations.data[i].air_temp + " " + observations.observations.data[i].name;
-  //       yValues[i] = observations.observations.data[i].air_temp;
+      console.log("jo test" + window.callbacks.show_line_ticks);
+      for (let i = 47; i > 0; i--){
+        let ci = observations.data[i].temp; 
+        console.log(ci);
+        let p = document.createElement('p');
+	      p.textContent = observations.data[i].time + " " + observations.data[i].temp + " " + observations.data[i].name;
+        yValues[i] = observations.data[i].temp;
         
-  //       if (observations.observations.data[i].local_date_time === "undefined"){
-  //         xValues[i] = "Not found";
-  //       }
-  //       else{
-  //         xValues[i] = observations.observations.data[i].local_date_time;
-  //       }
+        if (observations.data[i].time === "undefined"){
+          xValues[i] = "Not found";
+        }
+        else{
+          xValues[i] = observations.data[i].time;
+        }
         
-	//       parent.appendChild(p);
-  //     }
+	      parent.appendChild(p);
+      }
 
-  //     new Chart("myChart", {
-  //       type: "line",
-  //       data: {
-  //         labels: xValues,
-  //         datasets: [{
-  //           fill: false,
-  //           backgroundColor: "black",
-  //           data: yValues
-  //         }]
-  //       },
-  //       options: {
-  //       legend: {display: false},
-  //       title: {
-  //         display: true,
-  //         text: observations.observations.data[0].name + " temperature for " + observations.observations.data[0].local_date_time,
-  //       }}
-  //     });
-  //     })
-  //   .then((temp) => {
+      new Chart("myChart", {
+        type: "line",
+        data: {
+          labels: xValues,
+          datasets: [{
+            fill: false,
+            backgroundColor: "purple",
+            data: yValues
+          }]
+        },
+        options: {
+        legend: {display: false},
+        title: {
+          display: true,
+          text: observations.data[0].name + " temperature for " + observations.data[0].time,
+        }}
+      });
+      })
+    .then((temp) => {
 
-  //   }
-  //   );
+    }
+    );
 
 
   var z = document.createElement("h1");
