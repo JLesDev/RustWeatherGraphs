@@ -26,7 +26,8 @@ window.mutate_chart_object = function (v) {
   return v
 };
 
-async function run() {
+async function run(city) {
+  //location.reload();
   await init();
   doSomething();
   let a = await call_prog();
@@ -35,9 +36,8 @@ async function run() {
   const url = "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly";
   const urls = [
     "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly",
-    "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json",
+    "https://api.weather.bom.gov.au/v1/locations/r1f966/forecasts/hourly",
     "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94854.json"
-
   ];
   const url2 = "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly";
   const headers = {
@@ -49,7 +49,7 @@ async function run() {
   const response = {
     statusCode: 200,
     headers: headers,
-    body: JSON.stringify(url),
+    body: JSON.stringify(urls[city]),
   };
 
   const responses = {
@@ -62,8 +62,7 @@ async function run() {
 
   console.log(response);
 
-
-  await fetch(String(url)) //1
+  await fetch(String(urls[city])) //1
     .then((response) => response.json()) //2
     .then((observations) => {
       console.log(observations);
@@ -237,6 +236,23 @@ async function run() {
 	      parent.appendChild(p);
       }
 
+      function addData(chart, label, newData) {
+        chart.data.labels.push(label);
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(newData);
+        });
+        chart.update();
+      }
+
+      function removeData(chart) {
+        chart.data.labels.pop();
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+        chart.update();
+      }
+ 
+
 
       const plugin = {
         id: 'customCanvasBackgroundColor',
@@ -303,9 +319,12 @@ async function run() {
         plugins: [plugin],
         });
         //Chart.defaults.global.defautFontColor = 'white';
-       
+
+        removeData(myChart);
+        myChart.destroy();
+        addData(myChart, yValues, xValues);
       }
-    
+      
     )
     .then((temp) => {
 
@@ -361,4 +380,6 @@ async function run() {
   // printAddress();
 
 }
-run();
+run(0);
+window.run = run;
+// location.reload();
