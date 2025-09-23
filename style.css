@@ -28,6 +28,29 @@ html {
   box-sizing: inherit;
 }
 
+#top-box {
+  margin: 0;
+  /*background: #0a0a0a;  base dark background */
+  color: #f5f5f5;
+  min-height: 17vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Circle blur background */
+#top-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, rgba(48, 224, 87, 0.712), transparent 40%),
+              radial-gradient(circle at 80% 20%, rgba(0, 195, 255, 0.911), transparent 40%),
+              radial-gradient(circle at 30% 70%, rgba(255, 42, 149, 0.829), transparent 40%),
+              radial-gradient(circle at 70% 80%, rgba(255, 255, 11, 0.1), transparent 40%);
+  filter: blur(80px);
+  z-index: -1;
+}
+
+
 body {
   font-family: system-ui, sans-serif;
   color: var(--fg-color);
