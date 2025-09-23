@@ -34,7 +34,7 @@ async function run() {
   //test("https://reg.bom.gov.au/fwo/IDV60901/IDV60901.95936.json");
   const url = "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly";
   const urls = [
-    "https://reg.bom.gov.au/fwo/IDV60901/IDV60901.95936.json",
+    "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly",
     "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94866.json",
     "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94854.json"
 
@@ -94,7 +94,62 @@ async function run() {
         let nozero = realtimer.getHours().toString();
         let nonzero = nozero.replace(/^0+/, '');
         console.log(nonzero+":"+realtimer.getMinutes());
-	      p.textContent = currentTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + observations.data[i].temp_feels_like+"°C.";
+        let formatTime = nozero;
+        console.log("nozerotime = "+nozero.toString());
+        switch(nozero.toString()){
+          case "0": formatTime = "Midnight";
+            break;
+          case "1": formatTime = "1am";
+            break;
+          case "2": formatTime = "2am";
+            break;
+          case "3": formatTime = "3am";
+            break;
+          case "4": formatTime = "4am";
+            break;
+          case "5": formatTime = "5am";
+            break;
+          case "6": formatTime = "6am";
+            break;
+          case "7": formatTime = "7am";
+            break;
+          case "8": formatTime = "8am";
+            break;
+          case "9": formatTime = "9am";
+            break;
+          case "10": formatTime = "10am";
+            break;
+          case "11": formatTime = "11am";
+            break;
+          case "12": formatTime = "12pm";
+            break;
+          case "13": formatTime = "1pm";
+            break;
+          case "14": formatTime = "2pm";
+            break;
+          case "15": formatTime = "3pm";
+            break;
+          case "16": formatTime = "4pm";
+            break;
+          case "17": formatTime = "5pm";
+            break;
+          case "18": formatTime = "6pm";
+            break;
+          case "19": formatTime = "7pm";
+            break;
+          case "20": formatTime = "8pm";
+            break;
+          case "21": formatTime = "9pm";
+            break;
+          case "22": formatTime = "10pm";
+            break;
+          case "23": formatTime = "11pm";
+            break;
+          defualt: "Unknown time!";
+            break;
+        }
+        console.log("formatTime = "+formatTime);
+	      p.textContent = formatTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + observations.data[i].temp_feels_like+"°C.";
 
 	      parent.appendChild(p);
       }
@@ -115,6 +170,7 @@ async function run() {
         let nonzero = nozero.replace(/^0+/, '');
         console.log(nonzero+":"+realtimer.getMinutes());
 	      //p.textContent = currentTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + observations.data[i].temp_feels_like;
+        
         yValues[i] = observations.data[i].temp;
         
         if (observations.data[i].time === "undefined"){
@@ -122,7 +178,60 @@ async function run() {
         }
         else{
           // xValues[i] = observations.data[i].time;
-          xValues[i] = currentTime;
+          let formatTime = nozero;
+          switch(nozero.toString()){
+            case "0": formatTime = "Midnight";
+              break;
+            case "1": formatTime = "1am";
+              break;
+            case "2": formatTime = "2am";
+              break;
+            case "3": formatTime = "3am";
+              break;
+            case "4": formatTime = "4am";
+              break;
+            case "5": formatTime = "5am";
+              break;
+            case "6": formatTime = "6am";
+              break;
+            case "7": formatTime = "7am";
+              break;
+            case "8": formatTime = "8am";
+              break;
+            case "9": formatTime = "9am";
+              break;
+            case "10": formatTime = "10am";
+              break;
+            case "11": formatTime = "11am";
+              break;
+            case "12": formatTime = "12pm";
+              break;
+            case "13": formatTime = "1pm";
+              break;
+            case "14": formatTime = "2pm";
+              break;
+            case "15": formatTime = "3pm";
+              break;
+            case "16": formatTime = "4pm";
+              break;
+            case "17": formatTime = "5pm";
+              break;
+            case "18": formatTime = "6pm";
+              break;
+            case "19": formatTime = "7pm";
+              break;
+            case "20": formatTime = "8pm";
+              break;
+            case "21": formatTime = "9pm";
+              break;
+            case "22": formatTime = "10pm";
+              break;
+            case "23": formatTime = "11pm";
+              break;
+            defualt: "Unknown time!";
+              break;
+          };
+          xValues[i] = formatTime;
         }
         
 	      parent.appendChild(p);
@@ -162,8 +271,7 @@ async function run() {
           //backgroundColor: 'black',
           plugins: {
             customCanvasBackgroundColor: {
-              //color: 'black',
-              color: '#121213',
+                color: '#121213',
               }
           },
           legend: {
