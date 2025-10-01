@@ -1,0 +1,8 @@
+{
+    "cities": [
+        {"City":"Melbourne","Link":"https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly"},
+        {"City":"Adelaide","Link":"https://api.weather.bom.gov.au/v1/locations/r1f966/forecasts/hourly"},
+        {"City":"Sydney","Link":"https://api.weather.bom.gov.au/v1/locations/r3gwbq/forecasts/hourly"},
+        {"City":"Brisbane","Link":"https://api.weather.bom.gov.au/v1/locations/r7hgdm/forecasts/hourly"}
+    ]
+}
