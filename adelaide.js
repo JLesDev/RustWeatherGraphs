@@ -522,7 +522,7 @@ async function run(city) {
             label: '',
             pointRadius: 0,
             //color: "white",
-            borderColor: "pink",       // Line color
+            borderColor: 'rgba(149, 255, 237, 1)',       // Line color
             //backgroundColor: "black",   // Point color
             //pointBackgroundColor: "black",
             //pointBorderColor: "black",
