@@ -26,6 +26,25 @@ window.mutate_chart_object = function (v) {
   return v
 };
 
+function cityText(city){
+  let parent = document.querySelector('#placeholder2');
+  switch(city){
+    case 0:
+      parent.textContent = "Melbourne";
+      break;
+    case 1:
+      parent.textContent = "Adelaide";
+      break;
+    case 2: 
+      parent.textContent = "Sydney";
+      break;
+    case 3:
+      parent.textContent = "Brisbane";
+      break;
+  }
+ 
+}
+
 async function run(city) {
   //location.reload();
   await init();
@@ -67,6 +86,8 @@ async function run(city) {
   const xValues2 = [];
   const yValues2 = [];
 
+  
+
   await fetch(String(urls[0])) //1
     .then((response) => response.json()) //2
     .then((observations) => {
@@ -98,8 +119,10 @@ async function run(city) {
         console.log(nonzero+":"+realtimer.getMinutes());
         let formatTime = nozero;
         console.log("nozerotime = "+nozero.toString());
+        let date = new Date();
+        let dateform = date.toLocaleDateString();
         switch(nozero.toString()){
-          case "0": formatTime = "Midnight";
+          case "0": formatTime = dateform;
             break;
           case "1": formatTime = "1am";
             break;
@@ -174,16 +197,17 @@ async function run(city) {
 	      //p.textContent = currentTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + observations.data[i].temp_feels_like;
         
         yValues[i] = observations.data[i].temp;
-        //yValues[i] = observations.data[i].temp;
+
+        let formatdate = new Date();
+        let nextdate = formatdate.toLocaleDateString();
         
         if (observations.data[i].time === "undefined"){
           xValues[i] = "Not found";
         }
         else{
-          // xValues[i] = observations.data[i].time;
           let formatTime = nozero;
           switch(nozero.toString()){
-            case "0": formatTime = "Midnight";
+            case "0": formatTime = nextdate;
               break;
             case "1": formatTime = "1am";
               break;
@@ -250,6 +274,8 @@ async function run(city) {
     }
     );
 
+  let miner = 999;
+  let maxer = -999;
 
   await fetch(String(urls[1])) //1
     .then((response) => response.json()) //2
@@ -266,7 +292,11 @@ async function run(city) {
       
       console.log("jo test" + window.callbacks.show_line_ticks);
 
+
       for (let i = 0; i < 1; i++){
+
+        
+
         let ci = observations.data[i].temp; 
 
         let p = document.createElement('p');
@@ -282,8 +312,11 @@ async function run(city) {
         console.log(nonzero+":"+realtimer.getMinutes());
         let formatTime = nozero;
         console.log("nozerotime = "+nozero.toString());
+        let date = new Date();
+        //let nextdate = 
+        let dateform = date.toLocaleDateString();
         switch(nozero.toString()){
-          case "0": formatTime = "Midnight";
+          case "0": formatTime = dateform;
             break;
           case "1": formatTime = "1am";
             break;
@@ -335,17 +368,20 @@ async function run(city) {
             break;
         }
         console.log("formatTime = "+formatTime);
-	      p.textContent = formatTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + observations.data[i].temp_feels_like+"°C.";
-
+	      //p.textContent = formatTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + observations.data[i].temp_feels_like+"°C.";
 	      parent.appendChild(p);
       }
 
       for (let i = 24; i > -1; i--){
         let ci = observations.data[i].temp; 
+        if(ci < miner){
+          miner = ci;
+        }
+        if(ci > maxer){
+          maxer = ci;
+        }
         console.log(ci);
         let p = document.createElement('p');
-        //let timer = new Date(observations.data[i].time);
-        let timer = new Date(); 
         let realtimer = new Date(observations.data[i].time);
         console.log(realtimer);
         let now = new Date();
@@ -358,16 +394,22 @@ async function run(city) {
 	      //p.textContent = currentTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + observations.data[i].temp_feels_like;
         
         yValues2[i] = observations.data[i].temp;
-        //yValues[i] = observations.data[i].temp;
+        let formatdate = new Date();
+        //let nextdate = new Date();
+        //nextdate = setDate(formatdate.getDate() + 1);
+        let nextdate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+        console.log(nextdate);
+        var options = { day: 'numeric', month: 'long' };
+        let noyear = (nextdate.toLocaleDateString('en-US', options)).toString();
+        console.log(formatdate.toLocaleDateString('en-US', options));
         
         if (observations.data[i].time === "undefined"){
           xValues[i] = "Not found";
         }
         else{
-          // xValues[i] = observations.data[i].time;
           let formatTime = nozero;
           switch(nozero.toString()){
-            case "0": formatTime = "Midnight";
+            case "0": formatTime = noyear;
               break;
             case "1": formatTime = "1am";
               break;
@@ -468,7 +510,8 @@ async function run(city) {
         data: {
           labels: xValues,
           datasets: [{
-            label: "",
+            label: '',
+            pointRadius: 0,
             //color: "white",
             borderColor: "pink",       // Line color
             //backgroundColor: "black",   // Point color
@@ -477,29 +520,43 @@ async function run(city) {
             fill: true,
             backgroundColor: 'rgba(85, 85, 85, 1)',
             data: yValues
-          },
-          {
-            label: "",
-            //color: "white",
-            borderColor: "lightGrey",       // Line color
-            //backgroundColor: "black",   // Point color
-            //pointBackgroundColor: "black",
-            //pointBorderColor: "black",
-            fill: true,
-            backgroundColor: 'rgba(85, 85, 85, 1)',
-            data: yValues2
           }
+          // {
+          //   label: "",
+          //   //color: "white",
+          //   borderColor: "lightGrey",       // Line color
+          //   //backgroundColor: "black",   // Point color
+          //   //pointBackgroundColor: "black",
+          //   //pointBorderColor: "black",
+          //   fill: true,
+          //   backgroundColor: 'rgba(85, 85, 85, 1)',
+          //   data: yValues2
+          // }
         
           ]
         },
         options: {
-          //backgroundColor: 'black',
-          plugins: {
-            customCanvasBackgroundColor: {
-                color: '#121213',
-              }
+          label: {
+            display: false
           },
           legend: {
+            display: false
+          },
+          tooltips: {
+            enabled: false
+          },
+          
+          //backgroundColor: 'black',
+          plugins: {
+            // maintainAspectRatio: false,
+            customCanvasBackgroundColor: {
+                color: '#121213',
+              },
+            legend: {
+              display: false
+            },
+          },
+          datalabels: {
             display: false
           },
           title: {
@@ -518,7 +575,8 @@ async function run(city) {
               }
             },
             y: {
-             
+              max: maxer + 2,
+              min: miner - 2,
               ticks: {
                 //labels: yValues + "cdcd",
                 //display: false,
@@ -533,7 +591,7 @@ async function run(city) {
         //Chart.defaults.global.defautFontColor = 'white';
 
         //removeData(myChart);
-        myChart.destroy();
+        // myChart.destroy();
         // addData(myChart, yValues, xValues);
 
 
@@ -591,7 +649,21 @@ document.getElementById("melb").addEventListener("click", function (e) {
   runner(0);
 });
 
+document.getElementById("adel").addEventListener("click", function (e) {
+  runner(1);
+});
+
+document.getElementById("sydn").addEventListener("click", function (e) {
+  runner(2);
+});
+
+document.getElementById("bris").addEventListener("click", function (e) {
+  runner(3);
+});
+
+
 function runner(city){
+  cityText(city);
   console.log("RUNNER");
   location.reload;
   run(city);
