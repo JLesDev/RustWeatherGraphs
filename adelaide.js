@@ -45,6 +45,12 @@ function cityText(city){
  
 }
 
+const urls = [
+  "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly", //MELBOURNE
+  "https://api.weather.bom.gov.au/v1/locations/r1f966/forecasts/hourly", //ADELAIDE
+  "https://api.weather.bom.gov.au/v1/locations/r3gwbq/forecasts/hourly", //SYDNEY
+  "https://api.weather.bom.gov.au/v1/locations/r7hgdm/forecasts/hourly" //BRISBANE
+];
   let miner = 999;
   let maxer = -999;
 
@@ -55,13 +61,13 @@ async function run(city) {
   let a = await call_prog();
   console.log(a);
   //test("https://reg.bom.gov.au/fwo/IDV60901/IDV60901.95936.json");
+
+  // search for geohashes: https://api.weather.bom.gov.au/v1/locations?search=2020
+
   const url = "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly";
-  const urls = [
-    "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly",
-    "https://api.weather.bom.gov.au/v1/locations/r1f966/forecasts/hourly",
-    "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94854.json"
-  ];
+
   const url2 = "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly";
+
   const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -91,7 +97,7 @@ async function run(city) {
 
   
 
-  await fetch(String(urls[0])) //1
+  await fetch(String(urls[1])) //1
     .then((response) => response.json()) //2
     .then((observations) => {
       console.log(observations);
@@ -285,7 +291,7 @@ async function run(city) {
 
 
 
-  await fetch(String(urls[0])) //1
+  await fetch(String(urls[1])) //1
     .then((response) => response.json()) //2
     .then((observations) => {
       console.log(observations);
@@ -479,13 +485,13 @@ async function run(city) {
     }
     );
 
-  //  function addData(chart, label, newData) {
-  //       chart.data.labels.push(label);
-  //       chart.data.datasets.forEach((dataset) => {
-  //           dataset.data.push(newData);
-  //       });
-  //       chart.update();
-  //     }
+   function addData(chart, label, newData) {
+        chart.data.labels.push(label);
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(newData);
+        });
+        chart.update();
+      }
 
       // function removeData(chart) {
       //   chart.data.labels.pop();
@@ -648,15 +654,6 @@ async function run(city) {
 }
 
 
-      function removeData(chart) {
-        chart.data.labels.pop();
-        chart.data.datasets.forEach((dataset) => {
-            dataset.data.pop();
-        });
-        chart.update();
-      }
- 
-
 document.getElementById("melb").addEventListener("click", function (e) {
   runner(0);
   window.location.href = "index.html";
@@ -677,7 +674,6 @@ document.getElementById("bris").addEventListener("click", function (e) {
   runner(3);
   window.location.href = "brisbane.html";
 });
-
 
 function runner(city){
   cityText(city);
