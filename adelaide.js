@@ -183,8 +183,7 @@ async function run(city) {
             break;
         }
         console.log("formatTime = "+formatTime);
-	      p.textContent = formatTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + observations.data[i].temp_feels_like+"°C.";
-
+p.textContent = formatTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + (observations.data[i].temp_feels_like + 3)+"°C.";
 	      parent.appendChild(p);
       }
 
