@@ -185,6 +185,9 @@ async function run(city) {
         console.log("formatTime = "+formatTime);
 p.textContent = formatTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + (observations.data[i].temp_feels_like + 3)+"°C.";
 	      parent.appendChild(p);
+                let q = document.createElement('p');
+        q.textContent = "UV: " + observations.data[i].uv + ". Humidity: " + (observations.data[i].relative_humidity)+ "%. Is it raining? Not quite sure.";
+        parent.appendChild(q);
       }
 
       for (let i = 24; i > -1; i--){
