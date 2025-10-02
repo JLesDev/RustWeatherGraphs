@@ -675,12 +675,6 @@ document.getElementById("bris").addEventListener("click", function (e) {
   window.location.href = "brisbane.html";
 });
 
-document.getElementById("back").addEventListener("click", function (e) {
-  runner(0);
-  window.location.href = "index.html";
-});
-
-
 
 function runner(city){
   cityText(city);
