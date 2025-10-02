@@ -45,12 +45,6 @@ function cityText(city){
  
 }
 
-const urls = [
-  "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly", //MELBOURNE
-  "https://api.weather.bom.gov.au/v1/locations/r1f966/forecasts/hourly", //ADELAIDE
-  "https://api.weather.bom.gov.au/v1/locations/r3gwbq/forecasts/hourly", //SYDNEY
-  "https://api.weather.bom.gov.au/v1/locations/r7hgdm/forecasts/hourly" //BRISBANE
-];
   let miner = 999;
   let maxer = -999;
 
@@ -61,13 +55,13 @@ async function run(city) {
   let a = await call_prog();
   console.log(a);
   //test("https://reg.bom.gov.au/fwo/IDV60901/IDV60901.95936.json");
-
-  // search for geohashes: https://api.weather.bom.gov.au/v1/locations?search=2020
-
   const url = "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly";
-
+  const urls = [
+    "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly",
+    "https://api.weather.bom.gov.au/v1/locations/r1f966/forecasts/hourly",
+    "http://www.bom.gov.au/fwo/IDV60901/IDV60901.94854.json"
+  ];
   const url2 = "https://api.weather.bom.gov.au/v1/locations/r1r143/forecasts/hourly";
-
   const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -97,7 +91,7 @@ async function run(city) {
 
   
 
-  await fetch(String(urls[2])) //1
+  await fetch(String(urls[0])) //1
     .then((response) => response.json()) //2
     .then((observations) => {
       console.log(observations);
@@ -183,8 +177,7 @@ async function run(city) {
             break;
         }
         console.log("formatTime = "+formatTime);
-	      p.textContent = formatTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + (observations.data[i].temp_feels_like + 3)+"°C.";
-
+p.textContent = formatTime + ". Temp: " + observations.data[i].temp + "°C. Jonty's Temp: " + (observations.data[i].temp_feels_like + 3)+"°C.";
 	      parent.appendChild(p);
       }
 
@@ -291,7 +284,7 @@ async function run(city) {
 
 
 
-  await fetch(String(urls[2])) //1
+  await fetch(String(urls[0])) //1
     .then((response) => response.json()) //2
     .then((observations) => {
       console.log(observations);
@@ -485,13 +478,13 @@ async function run(city) {
     }
     );
 
-   function addData(chart, label, newData) {
-        chart.data.labels.push(label);
-        chart.data.datasets.forEach((dataset) => {
-            dataset.data.push(newData);
-        });
-        chart.update();
-      }
+  //  function addData(chart, label, newData) {
+  //       chart.data.labels.push(label);
+  //       chart.data.datasets.forEach((dataset) => {
+  //           dataset.data.push(newData);
+  //       });
+  //       chart.update();
+  //     }
 
       // function removeData(chart) {
       //   chart.data.labels.pop();
@@ -522,7 +515,7 @@ async function run(city) {
             label: '',
             pointRadius: 0,
             //color: "white",
-            borderColor: 'rgba(255, 230, 149, 1)',       // Line color
+            borderColor: "pink",       // Line color
             //backgroundColor: "black",   // Point color
             //pointBackgroundColor: "black",
             //pointBorderColor: "black",
@@ -654,32 +647,19 @@ async function run(city) {
 }
 
 
-document.getElementById("melb").addEventListener("click", function (e) {
-  runner(0);
-  window.location.href = "index.html";
-  // removeData("myChart");
-});
+      function removeData(chart) {
+        chart.data.labels.pop();
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+        chart.update();
+      }
 
-document.getElementById("adel").addEventListener("click", function (e) {
-  runner(1);
-  window.location.href = "adelaide.html";
-});
-
-document.getElementById("sydn").addEventListener("click", function (e) {
-  runner(2);
-  window.location.href = "sydney.html";
-});
-
-document.getElementById("bris").addEventListener("click", function (e) {
-  runner(3);
-  window.location.href = "brisbane.html";
-});
 
 document.getElementById("back").addEventListener("click", function (e) {
   runner(0);
   window.location.href = "index.html";
 });
-
 
 
 function runner(city){

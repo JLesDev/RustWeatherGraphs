@@ -35,9 +35,13 @@
   border-radius: 999px; /* pill shape */
   cursor: pointer;
 
-  background: rgba(255, 255, 255, 0.08); /* glassy look */
+  background: rgba(255, 255, 255, 0.08);
   color: #f5f5f5;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px); 
+
+  /* From https://css.glass */
+   /* background: rgba(199, 199, 199, 0.8); */
+  /* border: 2px solid rgba(0, 0, 0, 0.3);  */
 
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -402,4 +406,38 @@ hr {
   #keyboard-cont {
     margin: 0.3rem 0;
   }
+}
+
+#more-box {
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;   /* stack rows */
+  gap: 2rem;                /* spacing between rows */
+  padding: 1rem 2rem;
+  margin: 0;
+  color: #f5f5f5;
+  min-height: 34vh;         /* twice your 17vh */
+  overflow: hidden;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* One big gradient background */
+#more-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, rgba(124, 48, 224, 0.712), transparent 40%),
+              radial-gradient(circle at 80% 20%, rgba(187, 255, 0, 0.911), transparent 40%),
+              radial-gradient(circle at 30% 70%, rgba(255, 42, 149, 0.829), transparent 40%),
+              radial-gradient(circle at 70% 80%, rgba(219, 219, 219, 0.781), transparent 40%);
+  filter: blur(80px);
+  z-index: -1;
 }
