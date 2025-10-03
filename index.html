@@ -5,18 +5,95 @@
   <title>Australian Weather</title>
 </head>
 <body>
-  <link rel="stylesheet" href="style.css">
   <script type="module" src="./index.js"></script>
 
-  <div class="section">
-    <h1>Sunny.<br>Warm.<br>28°C.</h1>
+  <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+  </script>
+    
+  <link rel="stylesheet" href="style.css">
+  <div id="top-box">
+    <h1>Australian Non-governmental Weather</h1>
+    <!-- <h1 id="Melbourne">Melbourne</h1> -->
+    <nav class="city-nav">
+      <button class="city-btn" id="melb">Melbourne</button>
+      <button class="city-btn" id="adel">Adelaide</button>
+      <button class="city-btn" id="sydn">Sydney</button>
+      <button class="city-btn" id="bris">Brisbane</button>
+      <button class="city-btn" id="more">More</button>
+    </nav>
   </div>
-  <div class="section">
-    <p>It's Melbourne.</p>
-    <p>UV 5.</p>
-    <p>Humidity 28%.</p>
-    <p>Dry.</p>
-  </div>
-</body>
+  <hr>
 
+
+  <div id="chart">
+    <canvas id="myChart" style="width: 40%;height: 80%;background-color:aliceblue;align-items:center;justify-content: center;display: flex;"></canvas>
+
+    <!-- <canvas id="myChart" style="width:100%;max-width:1500px;background-color:aliceblue;align-items:center;justify-content: center;display: flex;"></canvas> -->
+  </div>
+
+  
+  <!-- <div id="feels-div">
+    <h2 id="feels2">You are valued.</h2>
+  </div> -->
+  <h1 id="placeholder2">Melbourne</h1>
+  <div id="idasdasd">
+
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@^4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@^4"></script>
+  
+  <script type="module">
+    import * as root from './pkg/hot_or_not_3.js'
+
+    // myChart.destroy();
+    window.callbacks = root;
+    window.mutate_chart_object = function (v) {
+      if (v.id == ("bar")) {
+        v.options.scales.y1.ticks = {
+          callback:
+            function (value, _index, _values) {
+              return '$' + value.toFixed(2);
+            }
+        };
+      }
+      //v.destroy();
+      return v
+    };
+  </script>
+  <!-- <div id="bot-container">
+  <div id="bot-box">
+        <nav class="city-nav">
+      <button class="city-btn" id="melb">Show Humidity $0.99</button>
+      <button class="city-btn" id="adel">Show UV $0.99</button>
+      <button class="city-btn" id="sydn">Show Wind $0.99</button>
+      <button class="city-btn" id="bris">Show Rainfall $0.99</button>
+  </nav>
+  </div>
+   <div id="bot-box-2">
+        <nav class="city-nav">
+      <button class="city-btn" id="melb">Unlock WA $2.99</button>
+      <button class="city-btn" id="adel">Unlock NT $2.99</button>
+      <button class="city-btn" id="sydn">Unlock ACT $2.99</button>
+      <button class="city-btn" id="bris">Follow me on Instagram $2.99</button>
+  </nav>
+  </div>
+  </div> -->
+  <div id="bot-box">
+  <div class="row">
+    <button class="city-btn">Show Advanced $0.99</button>
+    <button class="city-btn">Show Cloud Cover $0.99</button>
+    <button class="city-btn">Show Wind $0.99</button>
+    <button class="city-btn">Show Rainfall $0.99</button>
+  </div>
+  <div class="row">
+    <button class="city-btn">Unlock WA $2.99</button>
+    <button class="city-btn">Unlock NT $2.99</button>
+    <button class="city-btn">Unlock ACT $2.99</button>
+    <button class="city-btn">Follow me on Instagram $2.99</button>
+  </div>
+</div>
+
+</body>
 </html>
